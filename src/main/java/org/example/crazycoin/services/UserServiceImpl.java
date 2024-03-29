@@ -50,8 +50,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public BaseResponse login(ValidateUserRequest request) {
         IUserProjection user = repository.findUserByEmailAndPassword(request.getEmail(), request.getPassword());
-        System.out.println("aaaaaaa");
-        System.out.println(user);
+
         return BaseResponse.builder()
                 .data(from(user))
                 .message("User found correctly")

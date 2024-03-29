@@ -6,11 +6,11 @@ import org.example.crazycoin.controllers.dtos.responses.BaseResponse;
 import org.example.crazycoin.entities.User;
 
 public interface IUserService {
-    BaseResponse get(String request);
+  BaseResponse get(String request);
 
-    User findOneAndEnsureExist(String id);
+  User findOneAndEnsureExist(String id);
+  
+  BaseResponse create(CreateUserRequest request);
 
-    BaseResponse create(CreateUserRequest request);
-
-    BaseResponse login(ValidateUserRequest request);
+  BaseResponse login(ValidateUserRequest request);
 }
