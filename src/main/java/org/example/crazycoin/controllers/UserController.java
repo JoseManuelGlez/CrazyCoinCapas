@@ -1,6 +1,7 @@
 package org.example.crazycoin.controllers;
 
 import org.example.crazycoin.controllers.dtos.requests.CreateUserRequest;
+import org.example.crazycoin.controllers.dtos.requests.ValidateUserRequest;
 import org.example.crazycoin.controllers.dtos.responses.BaseResponse;
 import org.example.crazycoin.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,13 @@ public class UserController {
     @PostMapping
     public ResponseEntity<BaseResponse> create(@RequestBody CreateUserRequest request) {
         BaseResponse baseResponse = service.create(request);
+
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<BaseResponse> validate(@RequestBody ValidateUserRequest request){
+        BaseResponse baseResponse = service.login(request);
 
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
