@@ -19,6 +19,24 @@ public class UserServiceImpl implements IUserService {
     private IUserRepository repository;
 
     @Override
+    public BaseResponse get(String id) {
+
+        User user = findOneAndEnsureExist(id);
+
+        return BaseResponse.builder()
+                .data(from(user))
+                .message("User found")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public User findOneAndEnsureExist(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("The user does not exist"));
+    }
+
+    @Override
     public BaseResponse create(CreateUserRequest request) {
         User user = from(request);
 
