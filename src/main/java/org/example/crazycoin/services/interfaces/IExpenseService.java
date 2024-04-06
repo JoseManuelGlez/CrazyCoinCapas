@@ -5,4 +5,6 @@ import org.example.crazycoin.controllers.dtos.responses.BaseResponse;
 
 public interface IExpenseService {
     BaseResponse create(CreateExpenseRequest request);
+  
+    BaseResponse getExpensesByUserId(String userId);
 }

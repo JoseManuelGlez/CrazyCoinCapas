@@ -16,6 +16,11 @@ public class ExpenseController {
     @PostMapping
     public ResponseEntity<BaseResponse> create(@RequestBody CreateExpenseRequest request) {
         BaseResponse baseResponse = service.create(request);
+    }
+
+    @GetMapping("{userId}")
+    public ResponseEntity<BaseResponse> getExpensesByUserId(@PathVariable String userId) {
+        BaseResponse baseResponse = service.getExpensesByUserId(userId);
 
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
