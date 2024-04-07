@@ -4,8 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Builder
-@Getter
+@Builder @Getter
 public class BaseResponse {
     private Object data;
     private String message;
