@@ -16,6 +16,8 @@ public class ExpenseController {
     @PostMapping
     public ResponseEntity<BaseResponse> create(@RequestBody CreateExpenseRequest request) {
         BaseResponse baseResponse = service.create(request);
+
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping("{userId}")
