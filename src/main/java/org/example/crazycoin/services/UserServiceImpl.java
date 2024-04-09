@@ -62,7 +62,6 @@ public class UserServiceImpl implements IUserService {
         GetUserResponse response = new GetUserResponse();
 
         response.setId(user.getId());
-        response.setName(user.getName());
         response.setEmail(user.getEmail());
         response.setPassword(user.getPassword());
 
@@ -72,7 +71,6 @@ public class UserServiceImpl implements IUserService {
     private User from(CreateUserRequest request){
         User response = new User();
 
-        response.setName(request.getName());
         response.setPassword(request.getPassword());
         response.setEmail(request.getEmail());
 
