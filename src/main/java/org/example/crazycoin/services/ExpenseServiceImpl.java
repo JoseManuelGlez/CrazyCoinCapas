@@ -33,6 +33,54 @@ public class ExpenseServiceImpl implements IExpenseService {
                 .httpStatus(HttpStatus.CREATED).build();
     }
 
+    @Override
+    public BaseResponse getExpensesByUserId(String userId) {
+        List<Expense> expenses = repository.findByUserId(userId);
+
+        return BaseResponse.builder()
+                .data(expenses)
+                .message("Expenses found correctly")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.CREATED).build();
+    }
+
+    @Override
+    public BaseResponse delete(String id) {
+        repository.deleteById(id);
+
+        return BaseResponse.builder()
+                .data(null)
+                .message("Expense deleted")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public BaseResponse update(String id, CreateExpenseRequest request) {
+        Expense expense = findOneAndEnsureExist(id);
+        expense = update(expense, request);
+
+        return BaseResponse.builder()
+                .data(from(expense))
+                .message("Expense updated")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public Expense findOneAndEnsureExist(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("The expense does not exist"));
+    }
+
+    private Expense update(Expense expense, CreateExpenseRequest request){
+        expense.setMount(request.getMount());
+        expense.setDescription(request.getDescription());
+        expense.setCategory(request.getCategory());
+        expense.setDate(request.getDate());
+        return repository.save(expense);
+    }
+
     private GetExpenseResponse from(Expense expense){
         GetExpenseResponse response = new GetExpenseResponse();
 
@@ -62,16 +110,5 @@ public class ExpenseServiceImpl implements IExpenseService {
         expense.setUser(user);
 
         return expense;
-    }
-
-    @Override
-    public BaseResponse getExpensesByUserId(String userId) {
-        List<Expense> expenses = repository.findByUserId(userId);
-
-        return BaseResponse.builder()
-                .data(expenses)
-                .message("Expenses found correctly")
-                .success(Boolean.TRUE)
-                .httpStatus(HttpStatus.CREATED).build();
     }
 }

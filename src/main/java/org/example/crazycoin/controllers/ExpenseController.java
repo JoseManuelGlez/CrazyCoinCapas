@@ -20,9 +20,23 @@ public class ExpenseController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<BaseResponse> update(@PathVariable String id, @RequestBody CreateExpenseRequest request){
+        BaseResponse baseResponse = service.update(id, request);
+
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
     @GetMapping("{userId}")
     public ResponseEntity<BaseResponse> getExpensesByUserId(@PathVariable String userId) {
         BaseResponse baseResponse = service.getExpensesByUserId(userId);
+
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<BaseResponse> delete(@PathVariable String id){
+        BaseResponse baseResponse = service.delete(id);
 
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
